@@ -131,7 +131,16 @@ function InterfazDividida() {
   let mitadAncho = width / 2;
 
   //CAMARA
-  image(captura, 0, 0, mitadAncho, height);
+  let videoAspect = captura.width > 0 && captura.height > 0 ? captura.width / captura.height : 4 / 3;
+  let videoWidth = mitadAncho;
+  let videoHeight = videoWidth / videoAspect;
+  if (videoHeight > height) {
+    videoHeight = height;
+    videoWidth = videoHeight * videoAspect;
+  }
+  let videoX = (mitadAncho - videoWidth) / 2;
+  let videoY = (height - videoHeight) / 2;
+  image(captura, videoX, videoY, videoWidth, videoHeight);
 
   // Logo Qpx y cámara sobre video
   fill(255); 
